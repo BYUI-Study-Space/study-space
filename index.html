@@ -3,16 +3,264 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="Sebastian Lopez, April Ferris">
-  <title>StudySpace | Home</title>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/home.css">
-  <script type="module" src="js/home.js"></script>
+
+  <title>StudySpace | Find Your Study Spot</title>
+
+  <meta name="description" content="Find comfortable study locations with StudySpace. Explore Wi-Fi availability, location details, and spaces for individual or group study.">
+  <meta name="author" content="April Ferris and Sebastian Lopez">
+  <meta name="theme-color" content="#183b35">
+
+  <!-- Social sharing metadata -->
+  <meta property="og:title" content="StudySpace | Find Your Study Spot">
+  <meta property="og:description" content="Find your next space for individual study or group collaboration.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="StudySpace">
+  <!-- Add og:url and og:image when your published URL and image are ready. -->
+
+  <!-- Favicon: add your favicon file at this path -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- CSS: add your styles to this file -->
+  <link rel="stylesheet" href="styles/home.css">
+
+  <!-- JavaScript: add your code to this file -->
+  <!-- In home.js, include: // add API key info here -->
+  <script src="scripts/home.js" defer></script>
 </head>
+
 <body>
-  <header></header>
-  <main></main>
-  <footer></footer>
+  <a href="#main-content">Skip to main content</a>
+
+  <header>
+    <a href="index.html" aria-label="StudySpace home">StudySpace</a>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li>
+          <a href="index.html" aria-current="page">Home</a>
+        </li>
+        <li>
+          <a href="#locations">Study Locations</a>
+        </li>
+        <li>
+          <a href="#session-planner">Session Planner</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Welcome section -->
+    <section class="hero" aria-labelledby="welcome-heading">
+      <h1 id="welcome-heading">Find your space to focus</h1>
+
+      <p>
+        Discover comfortable places to study on your own or meet with
+        your group. Find a spot that fits the way you work.
+      </p>
+
+      <a href="#locations">Explore Study Spaces</a>
+    </section>
+
+    <!-- Study locations and filters -->
+    <section id="locations" aria-labelledby="locations-heading">
+      <h2 id="locations-heading">Explore Study Locations</h2>
+
+      <p>
+        These are sample locations. Verified locations and hours
+        will be added when the project data is ready.
+      </p>
+
+      <form id="location-filters" aria-labelledby="filters-heading">
+        <h3 id="filters-heading">Find a space that fits</h3>
+
+        <p id="filter-status" role="status" aria-live="polite">
+          Showing 3 sample study spaces.
+        </p>
+
+        <noscript>
+          <p>Enable JavaScript to use the location filters.</p>
+        </noscript>
+
+        <!-- Enable this fieldset in JavaScript when filters are ready. -->
+        <fieldset disabled>
+          <legend>Filter Study Spaces</legend>
+
+          <div>
+            <label for="location-type">Location type</label>
+            <select id="location-type" name="location-type">
+              <option value="all">All locations</option>
+              <option value="library">Library</option>
+              <option value="cafe">Café</option>
+              <option value="campus">Campus study area</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="study-type">Study preference</label>
+            <select id="study-type" name="study-type">
+              <option value="all">Individual or group</option>
+              <option value="individual">Individual study</option>
+              <option value="group">Group study</option>
+            </select>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              id="wifi-only"
+              name="wifi-only"
+              value="yes"
+            >
+            <label for="wifi-only">
+              Show spaces with Wi-Fi only
+            </label>
+          </div>
+
+          <button type="submit">Apply Filters</button>
+          <button type="reset">Reset Filters</button>
+        </fieldset>
+      </form>
+
+      <!-- Replace these sample cards with verified location data. -->
+      <div class="location-grid">
+        <article
+          class="location-card"
+          data-type="library"
+          data-study="individual"
+          data-wifi="yes"
+          aria-labelledby="library-heading"
+        >
+          <h3 id="library-heading">Library Quiet Area</h3>
+
+          <p>
+            A sample space for reading, reviewing notes,
+            and focused individual work.
+          </p>
+
+          <dl>
+            <dt>Location</dt>
+            <dd>Library — sample location</dd>
+
+            <dt>Best for</dt>
+            <dd>Individual study</dd>
+
+            <dt>Wi-Fi</dt>
+            <dd>Available in this sample</dd>
+
+            <dt>Noise level</dt>
+            <dd>Quiet</dd>
+
+            <dt>Hours</dt>
+            <dd>To be confirmed</dd>
+          </dl>
+        </article>
+
+        <article
+          class="location-card"
+          data-type="campus"
+          data-study="group"
+          data-wifi="yes"
+          aria-labelledby="group-heading"
+        >
+          <h3 id="group-heading">Campus Collaboration Room</h3>
+
+          <p>
+            A sample space for working through assignments
+            and discussing ideas with classmates.
+          </p>
+
+          <dl>
+            <dt>Location</dt>
+            <dd>Campus study area — sample location</dd>
+
+            <dt>Best for</dt>
+            <dd>Group study</dd>
+
+            <dt>Wi-Fi</dt>
+            <dd>Available in this sample</dd>
+
+            <dt>Noise level</dt>
+            <dd>Conversation welcome</dd>
+
+            <dt>Hours</dt>
+            <dd>To be confirmed</dd>
+          </dl>
+        </article>
+
+        <article
+          class="location-card"
+          data-type="cafe"
+          data-study="individual group"
+          data-wifi="no"
+          aria-labelledby="cafe-heading"
+        >
+          <h3 id="cafe-heading">Café Study Corner</h3>
+
+          <p>
+            A sample space for casual study sessions
+            with a little background activity.
+          </p>
+
+          <dl>
+            <dt>Location</dt>
+            <dd>Café — sample location</dd>
+
+            <dt>Best for</dt>
+            <dd>Individual or small group study</dd>
+
+            <dt>Wi-Fi</dt>
+            <dd>Not available in this sample</dd>
+
+            <dt>Noise level</dt>
+            <dd>Moderate</dd>
+
+            <dt>Hours</dt>
+            <dd>To be confirmed</dd>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- Session planner introduction -->
+    <section id="session-planner" aria-labelledby="planner-heading">
+      <h2 id="planner-heading">Make Time to Study</h2>
+
+      <p>
+        The session planner is coming soon. Choose a location,
+        set your study duration, and add notes for your session.
+      </p>
+
+      <!-- Add a link to your teammate's Sessions page when ready. -->
+    </section>
+
+    <!-- Study tips -->
+    <section aria-labelledby="tips-heading">
+      <h2 id="tips-heading">Get Ready for a Productive Session</h2>
+
+      <ul>
+        <li>
+          Choose a quiet space for focused work or a shared area
+          for group discussion.
+        </li>
+        <li>
+          Check the location’s current hours before you visit.
+        </li>
+        <li>
+          Bring your materials, set a goal, and plan time for a break.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>StudySpace | WDD 231 Team Project</p>
+    <p>April Ferris and Sebastian Lopez</p>
+
+    <!-- Populate the year using JavaScript. -->
+    <p>&copy; <span id="current-year"></span> StudySpace</p>
+
+    <a href="#main-content">Back to Top</a>
+  </footer>
 </body>
 </html>
