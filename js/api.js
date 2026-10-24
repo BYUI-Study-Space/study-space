@@ -49,6 +49,10 @@ export function getLocations(filters = {}) {
   return request(`/locations${query ? `?${query}` : ""}`);
 }
 
+export function getSession(id) {
+  return request(`/sessions/${encodeURIComponent(id)}`);
+}
+
 export function createSession(session) {
   return request("/sessions", {
     method: "POST",

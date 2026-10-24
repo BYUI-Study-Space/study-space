@@ -1,4 +1,4 @@
-import { ApiError, createSession, getLocations } from "./api.js";
+import { ApiError, createSession, getLocations, getSession } from "./api.js";
 
 const form = document.querySelector("#session-form");
 const locationSelect = document.querySelector("#location");
@@ -66,7 +66,6 @@ async function loadLocations() {
         new Option(`${location.name} — ${location.building}`, location.id)
       );
     }
-    setStatus("");
   } catch {
     locationSelect.replaceChildren(new Option("Locations unavailable", ""));
     submitButton.disabled = true;
@@ -278,6 +277,29 @@ function showConfirmation(session) {
   confirmationHeading.focus();
 }
 
+// Shows the session named in the URL (?session=<id>), so a confirmation
+// can be reloaded or shared after the form is submitted.
+async function showSessionFromUrl() {
+  const sessionId = new URLSearchParams(window.location.search).get("session");
+
+  if (!sessionId) {
+    confirmation.hidden = true;
+    return;
+  }
+
+  try {
+    showConfirmation(await getSession(sessionId));
+  } catch (error) {
+    confirmation.hidden = true;
+    setStatus(
+      error instanceof ApiError && error.status === 404
+        ? "We couldn't find that study session."
+        : "We couldn't load that study session. Please try again later.",
+      true
+    );
+  }
+}
+
 async function handleSubmit(event) {
   event.preventDefault();
   clearErrors();
@@ -297,6 +319,7 @@ async function handleSubmit(event) {
     updateLocationDetails();
     updateSessionType();
     setStatus("Your session is planned!");
+    history.pushState(null, "", `?session=${encodeURIComponent(session.id)}`);
     showConfirmation(session);
   } catch (error) {
     if (error instanceof ApiError && Object.keys(error.fields).length > 0) {
@@ -327,5 +350,7 @@ form.addEventListener("input", (event) => {
   }
 });
 form.addEventListener("submit", handleSubmit);
+window.addEventListener("popstate", showSessionFromUrl);
 
 loadLocations();
+showSessionFromUrl();
