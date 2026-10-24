@@ -2,8 +2,7 @@
 
 const LOCAL_HOSTS = ["localhost", "127.0.0.1"];
 
-// Replace with the Railway domain once the API is deployed.
-const PRODUCTION_API_URL = "https://study-space-api.up.railway.app/api";
+const PRODUCTION_API_URL = "https://study-space-api-production.up.railway.app/api";
 
 export const API_BASE_URL = LOCAL_HOSTS.includes(window.location.hostname)
   ? "http://localhost:3000/api"
