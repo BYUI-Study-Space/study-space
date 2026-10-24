@@ -1,0 +1,170 @@
+/* Session Planner page styles. Shared styles live in base.css. */
+
+/* Three form panels */
+
+.planner-panels {
+  display: grid;
+  gap: 1.25rem;
+  padding: 2rem 1.25rem;
+}
+
+/* Form fields */
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.required {
+  color: #b3261e;
+}
+
+.field-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #55605c;
+}
+
+.field-hint:empty {
+  display: none;
+}
+
+textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+
+/* Validation errors */
+
+.field-error {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #b3261e;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+[aria-invalid="true"] {
+  border-color: #b3261e;
+  box-shadow: 0 0 0 1px #b3261e;
+}
+
+/* Session type */
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0;
+  border: 0;
+}
+
+.radio-group legend {
+  margin-bottom: 0.35rem;
+  padding: 0;
+  font-weight: normal;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.radio-option input {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+}
+
+.radio-option label {
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.radio-option input:disabled + label {
+  color: #6b736f;
+}
+
+/* Submit button and status */
+
+.submit-button {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.submit-button:disabled {
+  color: #454545;
+  background-color: #e1e1e1;
+  border-color: #777;
+  cursor: not-allowed;
+}
+
+.form-status {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+}
+
+.form-status.is-error {
+  font-weight: bold;
+  color: #b3261e;
+}
+
+/* Session confirmation */
+
+.confirmation {
+  margin: 0 1.25rem 2rem;
+}
+
+.confirmation h2:focus {
+  outline: 3px solid #005fcc;
+  outline-offset: 4px;
+}
+
+.confirmation-body {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+}
+
+.confirmation-summary {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--background);
+}
+
+.confirmation-summary dt {
+  font-weight: bold;
+}
+
+.confirmation-summary dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Larger screens: match the wireframe layout */
+
+@media (min-width: 60rem) {
+  .planner-panels {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .confirmation {
+    margin-bottom: 2.5rem;
+  }
+
+  .confirmation-body {
+    grid-template-columns: 3fr 1fr;
+  }
+}

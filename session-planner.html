@@ -3,16 +3,264 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="Sebastian Lopez, April Ferris">
+
   <title>StudySpace | Session Planner</title>
+
+  <meta
+    name="description"
+    content="Plan an individual or group study session: choose a location, pick a date, time and duration, and add optional notes."
+  >
+  <meta name="author" content="Sebastian Lopez and April Ferris">
+  <meta name="theme-color" content="#183b35">
+
+  <meta property="og:title" content="StudySpace | Session Planner">
+  <meta
+    property="og:description"
+    content="Choose a study spot and plan your next study session."
+  >
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="StudySpace">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/session-planner.css">
   <script type="module" src="js/session-planner.js"></script>
 </head>
+
 <body>
-  <header></header>
-  <main></main>
-  <footer></footer>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <header class="site-header">
+      <a class="logo" href="index.html">StudySpace</a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li class="nav-photo">
+            <img
+              src="images/study-thumbnail.webp"
+              alt=""
+              width="120"
+              height="70"
+            >
+          </li>
+          <li>
+            <a href="session-planner.html" aria-current="page">Session</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="hero" aria-labelledby="planner-heading">
+        <div class="hero-text">
+          <h1 id="planner-heading">StudySpace: Plan Your Study Session</h1>
+          <p>
+            Pick a study spot, choose when and for how long,
+            and we will save your session.
+          </p>
+        </div>
+
+        <img
+          class="hero-image"
+          src="images/study-space.webp"
+          alt="Study tables and chairs in a library"
+          width="600"
+          height="400"
+        >
+      </section>
+
+      <form id="session-form" class="planner-panels" novalidate>
+        <section class="panel" aria-labelledby="student-heading">
+          <h2 id="student-heading">Student Info</h2>
+
+          <div class="form-field">
+            <label for="student-name">Full Name <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="student-name"
+              name="student_name"
+              autocomplete="name"
+              maxlength="100"
+              required
+              aria-describedby="student_name-error"
+            >
+            <p class="field-error" id="student_name-error"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+              aria-describedby="email-error"
+            >
+            <p class="field-error" id="email-error"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="student-id">Student ID <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="student-id"
+              name="student_id"
+              inputmode="numeric"
+              maxlength="20"
+              required
+              aria-describedby="student_id-error"
+            >
+            <p class="field-error" id="student_id-error"></p>
+          </div>
+
+          <p class="field-hint">Required fields (*) are validated before submit.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="details-heading">
+          <h2 id="details-heading">Session Details</h2>
+
+          <div class="form-field">
+            <label for="location">Location <span class="required" aria-hidden="true">*</span></label>
+            <select
+              id="location"
+              name="location_id"
+              required
+              aria-describedby="location-hours location_id-error"
+            >
+              <option value="">Loading locations…</option>
+            </select>
+            <p class="field-hint" id="location-hours"></p>
+            <p class="field-error" id="location_id-error"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="date">Date <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              required
+              aria-describedby="date-error"
+            >
+            <p class="field-error" id="date-error"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="start-time">Start Time <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="time"
+              id="start-time"
+              name="start_time"
+              required
+              aria-describedby="start_time-error"
+            >
+            <p class="field-error" id="start_time-error"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="duration">Duration <span class="required" aria-hidden="true">*</span></label>
+            <select
+              id="duration"
+              name="duration_minutes"
+              required
+              aria-describedby="duration_minutes-error"
+            >
+              <option value="">Choose a duration</option>
+              <option value="30">30 minutes</option>
+              <option value="60">1 hour</option>
+              <option value="90">1 hour 30 minutes</option>
+              <option value="120">2 hours</option>
+              <option value="180">3 hours</option>
+            </select>
+            <p class="field-error" id="duration_minutes-error"></p>
+          </div>
+
+          <fieldset class="radio-group" aria-describedby="session_type-error">
+            <legend>Session type</legend>
+
+            <div class="radio-option">
+              <input type="radio" id="type-individual" name="session_type" value="individual" checked>
+              <label for="type-individual">Individual</label>
+            </div>
+
+            <div class="radio-option">
+              <input type="radio" id="type-group" name="session_type" value="group">
+              <label for="type-group">Group</label>
+            </div>
+          </fieldset>
+          <p class="field-error" id="session_type-error"></p>
+
+          <div class="form-field" id="group-size-field" hidden>
+            <label for="group-size">Group size <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="number"
+              id="group-size"
+              name="group_size"
+              min="2"
+              step="1"
+              aria-describedby="group_size-error"
+            >
+            <p class="field-error" id="group_size-error"></p>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="notes-heading">
+          <h2 id="notes-heading">Notes</h2>
+
+          <div class="form-field">
+            <label for="notes">Optional notes</label>
+            <textarea
+              id="notes"
+              name="notes"
+              maxlength="500"
+              rows="6"
+              aria-describedby="notes-hint notes-error"
+            ></textarea>
+            <p class="field-hint" id="notes-hint">Up to 500 characters.</p>
+            <p class="field-error" id="notes-error"></p>
+          </div>
+
+          <button type="submit" class="submit-button">Plan Session</button>
+
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        </section>
+      </form>
+
+      <section
+        id="confirmation"
+        class="panel confirmation"
+        aria-labelledby="confirmation-heading"
+        hidden
+      >
+        <h2 id="confirmation-heading" tabindex="-1">Session Confirmation</h2>
+
+        <div class="confirmation-body">
+          <dl id="confirmation-summary" class="confirmation-summary"></dl>
+
+          <a class="button-link" href="index.html">Back to Home</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-info">
+        <p>StudySpace | WDD 231 Team Project</p>
+        <p>April Ferris and Sebastian Lopez @ 2026</p>
+      </div>
+
+      <nav aria-label="Social media">
+        <ul class="social-links">
+          <li>Facebook</li>
+          <li>Instagram</li>
+          <li>X / Twitter</li>
+        </ul>
+      </nav>
+    </footer>
+  </div>
 </body>
 </html>
