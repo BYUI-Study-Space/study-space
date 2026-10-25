@@ -334,8 +334,7 @@ async function handleSubmit(event) {
   }
 }
 
-/* Setup */
-
+//Counter, Preview, and Clear Form//
 dateInput.min = todayISO();
 
 locationSelect.addEventListener("change", updateLocationDetails);
@@ -355,12 +354,10 @@ window.addEventListener("popstate", showSessionFromUrl);
 loadLocations();
 showSessionFromUrl();
 
-/* Extra form features */
 (() => {
   const notesInput = form.elements.notes;
   const notesHint = document.querySelector("#notes-hint");
 
-  /* 1. Notes character counter */
 
   function updateNotesCounter() {
     notesHint.textContent =
@@ -369,7 +366,6 @@ showSessionFromUrl();
 
   notesInput.addEventListener("input", updateNotesCounter);
 
-  /* 2. Session preview */
 
   const preview = document.createElement("section");
   preview.className = "session-preview";
@@ -429,7 +425,6 @@ showSessionFromUrl();
   form.addEventListener("input", updateSessionPreview);
   form.addEventListener("change", updateSessionPreview);
 
-  /* 3. Clear Form button */
 
   const clearButton = document.createElement("button");
   clearButton.type = "button";
@@ -444,7 +439,6 @@ showSessionFromUrl();
     clearErrors();
     confirmation.hidden = true;
 
-    // Remove any previous confirmation reference from the URL.
     const pageUrl = new URL(window.location.href);
     pageUrl.searchParams.delete("session");
     history.replaceState(null, "", pageUrl);
@@ -453,10 +447,8 @@ showSessionFromUrl();
     form.elements.student_name.focus();
   });
 
-  /* Update the extra features whenever the form resets. */
 
   form.addEventListener("reset", () => {
-    // Wait until the browser finishes resetting the fields.
     setTimeout(() => {
       updateLocationDetails();
       updateSessionType();
