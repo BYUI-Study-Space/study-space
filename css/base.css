@@ -20,7 +20,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
   color: var(--text);
-  background-color: var(--background);
+  background-color: #d4ad89;
 }
 
 .site-wrapper {
@@ -139,6 +139,17 @@ textarea:focus-visible {
 .nav-links a[aria-current="page"] {
   color: white;
   background-color: var(--primary);
+}
+
+.nav-links a,
+.nav-links a[aria-current="page"] {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.nav-links a:hover {
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .nav-photo img {
@@ -268,6 +279,19 @@ input:not([type="checkbox"]):not([type="radio"]) {
 
 .footer-info p {
   margin-bottom: 0.35rem;
+}
+
+.footer-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-logo {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
 .social-links {

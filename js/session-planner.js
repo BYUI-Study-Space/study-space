@@ -354,3 +354,117 @@ window.addEventListener("popstate", showSessionFromUrl);
 
 loadLocations();
 showSessionFromUrl();
+
+/* Extra form features */
+(() => {
+  const notesInput = form.elements.notes;
+  const notesHint = document.querySelector("#notes-hint");
+
+  /* 1. Notes character counter */
+
+  function updateNotesCounter() {
+    notesHint.textContent =
+      `${notesInput.value.length} of ${notesInput.maxLength} characters used.`;
+  }
+
+  notesInput.addEventListener("input", updateNotesCounter);
+
+  /* 2. Session preview */
+
+  const preview = document.createElement("section");
+  preview.className = "session-preview";
+  preview.setAttribute("aria-labelledby", "session-preview-heading");
+
+  const previewHeading = document.createElement("h3");
+  previewHeading.id = "session-preview-heading";
+  previewHeading.textContent = "Your Session Preview";
+
+  const previewDetails = document.createElement("dl");
+
+  preview.append(previewHeading, previewDetails);
+  submitButton.before(preview);
+
+  function updateSessionPreview() {
+    const selectedOption = locationSelect.selectedOptions[0];
+
+    const locationText = locationSelect.value
+      ? selectedOption.textContent
+      : "Choose a location";
+
+    const dateText = form.elements.date.value
+      ? formatDate(form.elements.date.value)
+      : "Choose a date";
+
+    const timeText = form.elements.start_time.value || "Choose a time";
+
+    const durationText = durationSelect.value
+      ? durationSelect.selectedOptions[0].textContent
+      : "Choose a duration";
+
+    const typeText = isGroupSession()
+      ? `Group — ${groupSizeInput.value || "enter group size"}`
+      : "Individual";
+
+    const details = [
+      ["Location", locationText],
+      ["Date", dateText],
+      ["Start time", timeText],
+      ["Duration", durationText],
+      ["Session type", typeText],
+    ];
+
+    previewDetails.replaceChildren();
+
+    for (const [label, value] of details) {
+      const term = document.createElement("dt");
+      const description = document.createElement("dd");
+
+      term.textContent = label;
+      description.textContent = value;
+
+      previewDetails.append(term, description);
+    }
+  }
+
+  form.addEventListener("input", updateSessionPreview);
+  form.addEventListener("change", updateSessionPreview);
+
+  /* 3. Clear Form button */
+
+  const clearButton = document.createElement("button");
+  clearButton.type = "button";
+  clearButton.className = "clear-form-button";
+  clearButton.textContent = "Clear Form";
+
+    submitButton.before(clearButton);
+
+
+  clearButton.addEventListener("click", () => {
+    form.reset();
+    clearErrors();
+    confirmation.hidden = true;
+
+    // Remove any previous confirmation reference from the URL.
+    const pageUrl = new URL(window.location.href);
+    pageUrl.searchParams.delete("session");
+    history.replaceState(null, "", pageUrl);
+
+    setStatus("Form cleared.");
+    form.elements.student_name.focus();
+  });
+
+  /* Update the extra features whenever the form resets. */
+
+  form.addEventListener("reset", () => {
+    // Wait until the browser finishes resetting the fields.
+    setTimeout(() => {
+      updateLocationDetails();
+      updateSessionType();
+      updateNotesCounter();
+      updateSessionPreview();
+    }, 0);
+  });
+
+  updateNotesCounter();
+  updateSessionPreview();
+})();

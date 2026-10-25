@@ -21,13 +21,10 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="StudySpace">
 
-  <!-- Add your favicon and JavaScript files at these paths. -->
-  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/home.css">
   <script src="js/home.js" defer></script>
-
-  <!-- In your JavaScript file: add API key info here -->
 </head>
 
 <body>
@@ -43,10 +40,9 @@
             <a href="index.html" aria-current="page">Home</a>
           </li>
           <li class="nav-photo">
-            <!-- Replace with your small photo. -->
             <img
-              src="images/study-thumbnail.webp"
-              alt=""
+              src="images/Study.png"
+              alt="Study Space"
               width="120"
               height="70"
             >
@@ -64,15 +60,14 @@
           <h1 id="welcome-heading">StudySpace: Find Your Study Spot</h1>
           <p>
             Find a comfortable place for individual or group study
-            and make time to focus.
+            to have time to focus.
           </p>
         </div>
 
-        <!-- Replace with your photo and describe it in the alt text. -->
         <img
           class="hero-image"
-          src="images/study-space.webp"
-          alt="Study tables and chairs in a library"
+          src="images/main.png"
+          alt="Group Study Sessions available with Study Space"
           width="600"
           height="400"
         >
@@ -98,7 +93,6 @@
           <p>Explore study locations, Wi-Fi availability, and hours.</p>
 
           <form id="location-filters">
-            <!-- Remove disabled when your filtering JavaScript is ready. -->
             <fieldset disabled aria-describedby="filter-status">
               <legend>Filter Locations</legend>
 
@@ -129,7 +123,6 @@
           </p>
 
           <div id="location-list" class="location-list">
-            <!-- Replace this sample with verified location data. -->
             <article class="location-card">
               <h3>Sample Library Study Area</h3>
               <p>A space for quiet, individual study.</p>
@@ -156,24 +149,50 @@
             Contact the StudySpace team.
           </p>
 
-          <!-- Add your team contact information here. -->
-          <p class="contact-info">Contact information coming soon.</p>
+          <div class="contact-info">
+            <p>
+              <strong>Study Space LLC</strong><br>
+              6598 Anaheim Road, Suite 235<br>
+              Houston, Texas 75964
+            </p>
+
+            <p>
+              <strong>Phone:</strong>
+              <a href="tel:+18173659456">817-365-9456</a><br>
+              <strong>Fax:</strong> 817-564-9565
+            </p>
+
+            <p>
+              <strong>Hours of Operation:</strong><br>
+              Monday–Friday<br>
+              8:00 a.m.–5:00 p.m.
+            </p>
+          </div>
         </section>
       </div>
     </main>
 
     <footer class="site-footer">
-      <div class="footer-info">
-        <p>StudySpace | WDD 231 Team Project</p>
-        <p>April Ferris and Sebastian Lopez @ 2026</p>
+      <div class="footer-identity">
+        <img
+          class="footer-logo"
+          src="images/SP%20logo.png"
+          alt=""
+          width="60"
+          height="60"
+        >
+
+        <div class="footer-info">
+          <p>StudySpace | WDD 231 Team Project</p>
+          <p>April Ferris and Sebastian Lopez @ 2026</p>
+        </div>
       </div>
 
       <nav aria-label="Social media">
-        <!-- Turn these labels into links when your accounts are ready. -->
         <ul class="social-links">
-          <li>Facebook</li>
-          <li>Instagram</li>
-          <li>X / Twitter</li>
+          <li><a href="https://www.facebook.com/">Facebook</a></li>
+          <li><a href="https://www.instagram.com/">Instagram</a></li>
+          <li><a href="https://x.com/">X / Twitter</a></li>
         </ul>
       </nav>
     </footer>

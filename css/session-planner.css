@@ -114,6 +114,9 @@ textarea {
   color: #b3261e;
 }
 
+.clear-form-button {
+  margin-bottom: 1rem;
+}
 /* Session confirmation */
 
 .confirmation {
