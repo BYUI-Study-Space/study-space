@@ -24,7 +24,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/home.css">
-  <script src="js/home.js" defer></script>
+  <script type="module" src="js/home.js"></script>
 </head>
 
 <body>
@@ -93,15 +93,17 @@
           <p>Explore study locations, Wi-Fi availability, and hours.</p>
 
           <form id="location-filters">
-            <fieldset disabled aria-describedby="filter-status">
+            <fieldset aria-describedby="filter-status">
               <legend>Filter Locations</legend>
 
               <label for="location-type">Location type</label>
               <select id="location-type" name="location-type">
-                <option value="all">All locations</option>
-                <option value="library">Library</option>
-                <option value="cafe">Café</option>
-                <option value="campus">Campus study area</option>
+                  <option value="all">All Locations</option>
+                  <option value="library">Library</option>
+                  <option value="lounge">Study Lounge</option>
+                  <option value="commons">Student Commons</option>
+                  <option value="center">Study Center</option>
+                  <option value="outdoor">Outdoor Study Area</option>
               </select>
 
               <div class="checkbox-group">
