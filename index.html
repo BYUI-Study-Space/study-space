@@ -24,7 +24,10 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/home.css">
+
+  <script src="js/navigation.js" defer></script>
   <script type="module" src="js/home.js"></script>
+  <script src="js/navigation.js" defer></script>
 </head>
 
 <body>
@@ -35,10 +38,21 @@
       <a class="logo" href="index.html">StudySpace</a>
 
       <nav aria-label="Main navigation">
-        <ul class="nav-links">
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="main-navigation"
+          hidden
+        >
+          Menu
+        </button>
+
+        <ul class="nav-links" id="main-navigation">
           <li>
             <a href="index.html" aria-current="page">Home</a>
           </li>
+
           <li class="nav-photo">
             <img
               src="images/Study.png"
@@ -47,6 +61,7 @@
               height="70"
             >
           </li>
+
           <li>
             <a href="session-planner.html">Session</a>
           </li>
@@ -58,6 +73,7 @@
       <section class="hero" aria-labelledby="welcome-heading">
         <div class="hero-text">
           <h1 id="welcome-heading">StudySpace: Find Your Study Spot</h1>
+
           <p>
             Find a comfortable place for individual or group study
             to have time to focus.
@@ -85,6 +101,39 @@
           <a class="button-link" href="session-planner.html">
             Plan a Study Session
           </a>
+
+          <!-- Saved session details will be added by JavaScript. -->
+          <section
+            class="saved-sessions"
+            aria-labelledby="saved-sessions-heading"
+          >
+            <h3 id="saved-sessions-heading">Your Saved Sessions</h3>
+
+            <p>
+              View sessions saved in this browser.
+              Removing a session from this list does not cancel it.
+            </p>
+
+            <p
+              id="saved-sessions-status"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <p id="saved-sessions-empty" hidden>
+              You haven’t saved any study sessions yet.
+              Select Plan a Study Session to get started.
+            </p>
+
+            <div
+              id="saved-sessions-list"
+              class="saved-sessions-list"
+            ></div>
+
+            <noscript>
+              <p>Enable JavaScript to view your saved sessions.</p>
+            </noscript>
+          </section>
         </section>
 
         <section class="panel" aria-labelledby="locations-heading">
@@ -97,13 +146,14 @@
               <legend>Filter Locations</legend>
 
               <label for="location-type">Location type</label>
+
               <select id="location-type" name="location-type">
-                  <option value="all">All Locations</option>
-                  <option value="library">Library</option>
-                  <option value="lounge">Study Lounge</option>
-                  <option value="commons">Student Commons</option>
-                  <option value="center">Study Center</option>
-                  <option value="outdoor">Outdoor Study Area</option>
+                <option value="all">All Locations</option>
+                <option value="library">Library</option>
+                <option value="lounge">Study Lounge</option>
+                <option value="commons">Student Commons</option>
+                <option value="center">Study Center</option>
+                <option value="outdoor">Outdoor Study Area</option>
               </select>
 
               <div class="checkbox-group">
@@ -113,6 +163,7 @@
                   name="wifi-only"
                   value="yes"
                 >
+
                 <label for="wifi-only">Wi-Fi available</label>
               </div>
 
@@ -192,9 +243,15 @@
 
       <nav aria-label="Social media">
         <ul class="social-links">
-          <li><a href="https://www.facebook.com/">Facebook</a></li>
-          <li><a href="https://www.instagram.com/">Instagram</a></li>
-          <li><a href="https://x.com/">X / Twitter</a></li>
+          <li>
+            <a href="https://www.facebook.com/">Facebook</a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/">Instagram</a>
+          </li>
+          <li>
+            <a href="https://x.com/">X / Twitter</a>
+          </li>
         </ul>
       </nav>
     </footer>

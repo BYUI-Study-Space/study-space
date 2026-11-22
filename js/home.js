@@ -163,3 +163,8 @@ wifiOnly.addEventListener("change", filterLocations);
 
 locationForm.querySelector("fieldset").disabled = false;
 filterLocations();
+/* Load the saved-session feature separately so API problems do not break filters. */
+import("./saved-sessions.js").catch(() => {
+  const status = document.querySelector("#saved-sessions-status");
+  if (status) status.textContent = "Saved sessions could not be loaded. Please refresh to try again.";
+});

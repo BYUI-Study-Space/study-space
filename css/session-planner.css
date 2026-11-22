@@ -1,4 +1,5 @@
-/* Session Planner page styles. Shared styles live in base.css. */
+/* Session Planner page styles.
+   Shared styles live in base.css. */
 
 /* Three form panels */
 
@@ -90,6 +91,33 @@ textarea {
   color: #6b736f;
 }
 
+/* Session preview */
+
+.session-preview {
+  margin: 1.25rem 0;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--background);
+}
+
+.session-preview h3 {
+  font-size: 1.05rem;
+}
+
+.session-preview dl {
+  margin-bottom: 0;
+}
+
+.session-preview dt {
+  font-weight: bold;
+}
+
+.session-preview dd {
+  margin: 0 0 0.6rem;
+  overflow-wrap: anywhere;
+}
+
 /* Submit button and status */
 
 .submit-button {
@@ -117,6 +145,7 @@ textarea {
 .clear-form-button {
   margin-bottom: 1rem;
 }
+
 /* Session confirmation */
 
 .confirmation {
@@ -136,7 +165,7 @@ textarea {
 
 .confirmation-summary {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
   gap: 0.35rem 1rem;
   margin: 0;
   padding: 0.75rem;
@@ -147,11 +176,38 @@ textarea {
 
 .confirmation-summary dt {
   font-weight: bold;
+  overflow-wrap: anywhere;
 }
 
 .confirmation-summary dd {
   margin: 0;
   overflow-wrap: anywhere;
+}
+
+/* CSS animation for a visible confirmation */
+
+.confirmation:not([hidden]) {
+  animation: confirmation-appear 0.4s ease-out;
+}
+
+@keyframes confirmation-appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmation:not([hidden]) {
+    animation: none;
+  }
 }
 
 /* Larger screens: match the wireframe layout */

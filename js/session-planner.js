@@ -1,4 +1,5 @@
 import { ApiError, createSession, getLocations, getSession } from "./api.js";
+import { rememberSession } from "./session-storage.js";
 
 const form = document.querySelector("#session-form");
 const locationSelect = document.querySelector("#location");
@@ -318,7 +319,15 @@ async function handleSubmit(event) {
     form.reset();
     updateLocationDetails();
     updateSessionType();
-    setStatus("Your session is planned!");
+    // The API has saved the session. A browser-storage failure must not
+    // falsely report that the API submission failed or encourage a duplicate.
+    let savedMessage = "Your session has been saved";
+    try {
+      rememberSession(session.id);
+    } catch {
+      savedMessage += ". This browser could not remember it. Keep the confirmation link to reopen it later.";
+    }
+    setStatus(savedMessage);
     history.pushState(null, "", `?session=${encodeURIComponent(session.id)}`);
     showConfirmation(session);
   } catch (error) {

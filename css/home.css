@@ -8,6 +8,61 @@
   padding: 2rem 1.25rem;
 }
 
+/* Saved sessions */
+
+.saved-sessions {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.saved-sessions h3 {
+  font-size: 1.1rem;
+}
+
+.saved-sessions-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.saved-session-card {
+  min-width: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--background);
+  overflow-wrap: anywhere;
+}
+
+.saved-session-card h4 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.saved-session-card dl {
+  margin: 0 0 1rem;
+}
+
+.saved-session-card dt {
+  font-weight: bold;
+}
+
+.saved-session-card dd {
+  margin: 0 0 0.6rem;
+}
+
+.saved-session-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+#saved-sessions-status,
+#saved-sessions-empty {
+  margin: 0.75rem 0;
+  overflow-wrap: anywhere;
+}
+
 /* Location filters */
 
 .checkbox-group {
@@ -63,6 +118,7 @@ fieldset:disabled button {
 
 .location-card dd {
   margin: 0 0 0.6rem;
+  overflow-wrap: anywhere;
 }
 
 /* Contact information */
@@ -72,6 +128,10 @@ fieldset:disabled button {
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow-wrap: anywhere;
+}
+
+.contact-info p:last-child {
+  margin-bottom: 0;
 }
 
 /* Larger screens: match the wireframe layout */
