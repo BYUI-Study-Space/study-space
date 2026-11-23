@@ -81,7 +81,10 @@
 
         <img
           class="hero-image"
-          src="images/main.png"
+          src="images/main-960.webp"
+          srcset="images/main-480.webp 480w, images/main-640.webp 640w, images/main-960.webp 960w"
+          sizes="(min-width: 60rem) 460px, calc(100vw - 4.5rem)"
+          fetchpriority="high"
           alt="Group Study Sessions available with Study Space"
           width="600"
           height="400"
@@ -248,7 +251,8 @@
       <div class="footer-identity">
         <img
           class="footer-logo"
-          src="images/SP%20logo.png"
+          src="images/sp-logo-120.webp"
+            loading="lazy"
           alt=""
           width="60"
           height="60"

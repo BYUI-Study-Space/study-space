@@ -52,7 +52,9 @@
           </li>
           <li class="nav-photo">
             <img
-              src="images/Study%20session.png"
+              src="images/study-session-700.webp"
+              srcset="images/study-session-400.webp 400w, images/study-session-700.webp 700w"
+              sizes="(min-width: 60rem) 240px, calc(100vw - 4.5rem)"
               alt=""
               width="120"
               height="70"
@@ -77,7 +79,10 @@
 
         <img
           class="hero-image"
-          src="images/sessions.png"
+          src="images/sessions-960.webp"
+          srcset="images/sessions-480.webp 480w, images/sessions-640.webp 640w, images/sessions-960.webp 960w"
+          sizes="(min-width: 60rem) 460px, calc(100vw - 4.5rem)"
+          fetchpriority="high"
           alt="Student studying at a table"
           width="600"
           height="400"
@@ -306,7 +311,8 @@
         <div class="footer-identity">
           <img
             class="footer-logo"
-            src="images//SP%20logo.png"
+            src="images/sp-logo-120.webp"
+            loading="lazy"
             alt=""
             width="60"
             height="60"
