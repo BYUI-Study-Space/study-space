@@ -14,6 +14,12 @@ const formStatus = document.querySelector("#form-status");
 const confirmation = document.querySelector("#confirmation");
 const confirmationHeading = document.querySelector("#confirmation-heading");
 const confirmationSummary = document.querySelector("#confirmation-summary");
+const confirmationClose = document.querySelector("#confirmation-close");
+const locationFilters = document.querySelector("#location-filters");
+const filterWifi = document.querySelector("#filter-wifi");
+const filterGroup = document.querySelector("#filter-group");
+const filterNoise = document.querySelector("#filter-noise");
+const locationFilterStatus = document.querySelector("#location-filter-status");
 
 const locationsById = new Map();
 
@@ -60,18 +66,48 @@ async function loadLocations() {
   try {
     const locations = await getLocations();
 
-    locationSelect.replaceChildren(new Option("Choose a location", ""));
     for (const location of locations) {
       locationsById.set(location.id, location);
-      locationSelect.append(
-        new Option(`${location.name} — ${location.building}`, location.id)
-      );
     }
+    locationFilters.disabled = false;
+    applyLocationFilters();
   } catch {
     locationSelect.replaceChildren(new Option("Locations unavailable", ""));
     submitButton.disabled = true;
     setStatus("We couldn't load study locations. Please try again later.", true);
   }
+}
+
+// Rebuilds the location list from the filters, keeping the current
+// choice when it still matches.
+function applyLocationFilters() {
+  if (locationsById.size === 0) return;
+
+  const current = locationSelect.value;
+  const matches = [...locationsById.values()].filter((location) =>
+    (!filterWifi.checked || location.has_wifi) &&
+    (!filterGroup.checked || location.group_friendly) &&
+    (!filterNoise.value || location.noise_level === filterNoise.value)
+  );
+
+  locationSelect.replaceChildren(new Option(
+    matches.length > 0 ? "Choose a location" : "No locations match these filters",
+    ""
+  ));
+  for (const location of matches) {
+    locationSelect.append(
+      new Option(`${location.name} — ${location.building}`, location.id)
+    );
+  }
+
+  if (matches.some((location) => String(location.id) === current)) {
+    locationSelect.value = current;
+  } else if (current) {
+    updateLocationDetails();
+  }
+
+  locationFilterStatus.textContent =
+    `${matches.length} of ${locationsById.size} locations match.`;
 }
 
 function updateLocationDetails() {
@@ -87,8 +123,10 @@ function updateLocationDetails() {
   const groupInfo = location.group_friendly
     ? `groups up to ${location.capacity}`
     : "individual study only";
+  const wifiInfo = location.has_wifi ? "Wi-Fi" : "no Wi-Fi";
   locationHours.textContent =
-    `Open ${location.open_time}–${location.close_time} · ${groupInfo}`;
+    `Open ${location.open_time}–${location.close_time} · ${groupInfo} · ` +
+    `${wifiInfo} · ${location.noise_level} noise`;
 
   groupRadio.disabled = !location.group_friendly;
   if (!location.group_friendly && groupRadio.checked) {
@@ -274,8 +312,22 @@ function showConfirmation(session) {
     })
   );
 
-  confirmation.hidden = false;
+  openConfirmation();
+}
+
+// The confirmation is a modal dialog so it can't be missed at the
+// bottom of the page. Escape, Close, or a backdrop click close it.
+function openConfirmation() {
+  if (!confirmation.open) {
+    confirmation.showModal();
+  }
   confirmationHeading.focus();
+}
+
+function closeConfirmation() {
+  if (confirmation.open) {
+    confirmation.close();
+  }
 }
 
 // Shows the session named in the URL (?session=<id>), so a confirmation
@@ -284,14 +336,14 @@ async function showSessionFromUrl() {
   const sessionId = new URLSearchParams(window.location.search).get("session");
 
   if (!sessionId) {
-    confirmation.hidden = true;
+    closeConfirmation();
     return;
   }
 
   try {
     showConfirmation(await getSession(sessionId));
   } catch (error) {
-    confirmation.hidden = true;
+    closeConfirmation();
     setStatus(
       error instanceof ApiError && error.status === 404
         ? "We couldn't find that study session."
@@ -359,6 +411,21 @@ form.addEventListener("input", (event) => {
 });
 form.addEventListener("submit", handleSubmit);
 window.addEventListener("popstate", showSessionFromUrl);
+
+confirmationClose.addEventListener("click", closeConfirmation);
+confirmation.addEventListener("click", (event) => {
+  // The dialog itself is only the target when the backdrop is clicked.
+  if (event.target === confirmation) {
+    closeConfirmation();
+  }
+});
+
+for (const filter of [filterWifi, filterGroup, filterNoise]) {
+  filter.addEventListener("change", applyLocationFilters);
+}
+form.addEventListener("reset", () => {
+  setTimeout(applyLocationFilters, 0);
+});
 
 loadLocations();
 showSessionFromUrl();
@@ -446,7 +513,7 @@ showSessionFromUrl();
   clearButton.addEventListener("click", () => {
     form.reset();
     clearErrors();
-    confirmation.hidden = true;
+    closeConfirmation();
 
     const pageUrl = new URL(window.location.href);
     pageUrl.searchParams.delete("session");

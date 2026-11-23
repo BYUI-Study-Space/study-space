@@ -194,6 +194,21 @@ textarea:focus-visible {
 .site-header nav.navigation-ready
 .menu-toggle[aria-expanded="true"] + .nav-links {
   display: flex;
+  animation: menu-drop 0.25s ease-out;
+}
+
+/* CSS animation: the small-screen menu slides down when opened */
+
+@keyframes menu-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .site-header nav.navigation-ready .nav-links li + li {
@@ -320,6 +335,36 @@ input:not([type="checkbox"]):not([type="radio"]) {
   background-color: white;
 }
 
+/* Checkboxes (location filters on both pages) */
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.checkbox-group label {
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.checkbox-group input {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* Respect reduced-motion preferences for every animation */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  ::backdrop {
+    animation: none !important;
+  }
+}
+
 /* Footer */
 
 .site-footer {
@@ -401,9 +446,12 @@ input:not([type="checkbox"]):not([type="radio"]) {
     display: none;
   }
 
-  .site-header nav.navigation-ready .nav-links {
+  .site-header nav.navigation-ready .nav-links,
+  .site-header nav.navigation-ready
+  .menu-toggle[aria-expanded="true"] + .nav-links {
     display: flex;
     flex-direction: row;
+    animation: none;
   }
 
   .site-header nav.navigation-ready .nav-links li + li {

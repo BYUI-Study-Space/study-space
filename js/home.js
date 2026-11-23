@@ -1,6 +1,8 @@
 const locationForm = document.querySelector("#location-filters");
 const locationType = document.querySelector("#location-type");
 const wifiOnly = document.querySelector("#wifi-only");
+const groupOnly = document.querySelector("#group-only");
+const noiseLevel = document.querySelector("#noise-level");
 const locationList = document.querySelector("#location-list");
 const filterStatus = document.querySelector("#filter-status");
 
@@ -17,6 +19,8 @@ const locations = [
     description: "An outdoor setting for studying.",
     location: "Thomas E. Ricks Horticulture Gardens, BYU–Idaho",
     wifi: null,
+    groupFriendly: true,
+    noise: "collaborative",
     hours: "Public gardens; specific opening hours not published."
   },
   {
@@ -25,6 +29,8 @@ const locations = [
     description: "An indoor space for individual study.",
     location: "Gordon B. Hinckley Building, BYU–Idaho",
     wifi: true,
+    groupFriendly: true,
+    noise: "moderate",
     hours:
       "Mon–Sat: 6:00 a.m.–11:30 p.m. " +
       "(General academic-building hours; lounge access may vary.)"
@@ -35,6 +41,8 @@ const locations = [
     description: "Study rooms for working with classmates.",
     location: "David O. McKay Library, BYU–Idaho",
     wifi: true,
+    groupFriendly: true,
+    noise: "collaborative",
     hours:
       libraryHours +
       " Group-room availability depends on reservations."
@@ -45,6 +53,8 @@ const locations = [
     description: "A quiet setting for focused, individual study.",
     location: "David O. McKay Library, BYU–Idaho",
     wifi: true,
+    groupFriendly: false,
+    noise: "quiet",
     hours: libraryHours
   },
   {
@@ -53,6 +63,8 @@ const locations = [
     description: "A shared campus setting for studying.",
     location: "Hyrum Manwaring Student Center, BYU–Idaho",
     wifi: true,
+    groupFriendly: true,
+    noise: "moderate",
     hours:
       "Mon–Sat: 6:00 a.m.–11:30 p.m. " +
       "(Building hours; individual areas may vary.)"
@@ -63,6 +75,8 @@ const locations = [
     description: "Drop-in math help and tutoring.",
     location: "McKay Library, Room 170, BYU–Idaho",
     wifi: true,
+    groupFriendly: true,
+    noise: "collaborative",
     hours:
       "Mon and Fri: 9:00 a.m.–6:30 p.m.; " +
       "Tue–Thu: 9:00 a.m.–9:00 p.m.; " +
@@ -73,6 +87,12 @@ const locations = [
 
 // Indoor Wi-Fi values assume campus network access.
 // Confirm coverage at individual spaces before treating it as guaranteed.
+
+const noiseLabels = {
+  quiet: "Quiet",
+  moderate: "Moderate",
+  collaborative: "Collaborative"
+};
 
 /* Add a labeled detail to a card */
 
@@ -91,9 +111,11 @@ function addDetail(details, label, value) {
 function displayLocations(filteredLocations) {
   locationList.replaceChildren();
 
-  filteredLocations.forEach((location) => {
+  filteredLocations.forEach((location, index) => {
     const card = document.createElement("article");
     card.className = "location-card";
+    // Used by the CSS card animation to stagger each card.
+    card.style.setProperty("--card-index", index);
 
     const heading = document.createElement("h3");
     heading.textContent = location.name;
@@ -112,6 +134,9 @@ function displayLocations(filteredLocations) {
 
     addDetail(details, "Location", location.location);
     addDetail(details, "Wi-Fi", wifiText);
+    addDetail(details, "Group study",
+      location.groupFriendly ? "Group-friendly" : "Individual study only");
+    addDetail(details, "Noise level", noiseLabels[location.noise]);
     addDetail(details, "Hours", location.hours);
 
     card.append(heading, introduction, details);
@@ -120,7 +145,7 @@ function displayLocations(filteredLocations) {
 
   if (filteredLocations.length === 0) {
     filterStatus.textContent =
-      "No matching locations found. Try another type or uncheck Wi-Fi.";
+      "No matching locations found. Try another type or remove a filter.";
   } else {
     const count = filteredLocations.length;
 
@@ -130,7 +155,7 @@ function displayLocations(filteredLocations) {
   }
 }
 
-/* Apply the selected location and Wi-Fi filters */
+/* Apply the selected type, Wi-Fi, group, and noise filters */
 
 function filterLocations() {
   const filteredLocations = locations.filter((location) => {
@@ -141,7 +166,13 @@ function filterLocations() {
     const matchesWifi =
       !wifiOnly.checked || location.wifi === true;
 
-    return matchesType && matchesWifi;
+    const matchesGroup =
+      !groupOnly.checked || location.groupFriendly;
+
+    const matchesNoise =
+      noiseLevel.value === "all" || location.noise === noiseLevel.value;
+
+    return matchesType && matchesWifi && matchesGroup && matchesNoise;
   });
 
   displayLocations(filteredLocations);
@@ -158,6 +189,8 @@ locationForm.addEventListener("submit", (event) => {
 
 locationType.addEventListener("change", filterLocations);
 wifiOnly.addEventListener("change", filterLocations);
+groupOnly.addEventListener("change", filterLocations);
+noiseLevel.addEventListener("change", filterLocations);
 
 /* Enable filters and replace the sample content on page load */
 

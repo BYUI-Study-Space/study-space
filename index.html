@@ -25,7 +25,6 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/home.css">
 
-  <script src="js/navigation.js" defer></script>
   <script type="module" src="js/home.js"></script>
   <script src="js/navigation.js" defer></script>
 </head>
@@ -139,7 +138,7 @@
         <section class="panel" aria-labelledby="locations-heading">
           <h2 id="locations-heading">Location Finder</h2>
 
-          <p>Explore study locations, Wi-Fi availability, and hours.</p>
+          <p>Explore study locations, Wi-Fi availability, group space, noise level, and hours.</p>
 
           <form id="location-filters">
             <fieldset aria-describedby="filter-status">
@@ -166,6 +165,26 @@
 
                 <label for="wifi-only">Wi-Fi available</label>
               </div>
+
+              <div class="checkbox-group">
+                <input
+                  type="checkbox"
+                  id="group-only"
+                  name="group-only"
+                  value="yes"
+                >
+
+                <label for="group-only">Group-friendly</label>
+              </div>
+
+              <label for="noise-level">Noise level</label>
+
+              <select id="noise-level" name="noise-level">
+                <option value="all">Any noise level</option>
+                <option value="quiet">Quiet</option>
+                <option value="moderate">Moderate</option>
+                <option value="collaborative">Collaborative</option>
+              </select>
 
               <button type="submit">Find Locations</button>
             </fieldset>

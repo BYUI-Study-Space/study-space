@@ -121,7 +121,11 @@ async function renderSavedSessions(prefix = "") {
   }));
 
   if (version !== renderVersion) return;
-  results.forEach((result, index) => list.append(buildCard(ids[index], result)));
+  results.forEach((result, index) => {
+    const card = buildCard(ids[index], result);
+    card.style.setProperty("--card-index", index);
+    list.append(card);
+  });
   const loaded = results.filter((result) => result.status === "fulfilled").length;
   status.textContent = `${prefix}${loaded} of ${ids.length} saved session(s) loaded.`;
 }

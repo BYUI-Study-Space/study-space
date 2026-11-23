@@ -135,6 +135,41 @@
         <section class="panel" aria-labelledby="details-heading">
           <h2 id="details-heading">Session Details</h2>
 
+          <!-- These filters have no name, so they are not sent with the session. -->
+          <fieldset
+            class="location-filters"
+            id="location-filters"
+            aria-describedby="location-filter-status"
+            disabled
+          >
+            <legend>Narrow the location list</legend>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="filter-wifi">
+              <label for="filter-wifi">Wi-Fi available</label>
+            </div>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="filter-group">
+              <label for="filter-group">Group-friendly</label>
+            </div>
+
+            <label for="filter-noise">Noise level</label>
+            <select id="filter-noise">
+              <option value="">Any noise level</option>
+              <option value="quiet">Quiet</option>
+              <option value="moderate">Moderate</option>
+              <option value="collaborative">Collaborative</option>
+            </select>
+
+            <p
+              class="field-hint"
+              id="location-filter-status"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </fieldset>
+
           <div class="form-field">
             <label for="location">Location <span class="required" aria-hidden="true">*</span></label>
             <select
@@ -242,20 +277,29 @@
         </section>
       </form>
 
-      <section
+      <dialog
         id="confirmation"
-        class="panel confirmation"
+        class="confirmation"
         aria-labelledby="confirmation-heading"
-        hidden
       >
-        <h2 id="confirmation-heading" tabindex="-1">Session Confirmation</h2>
+        <div class="confirmation-content">
+          <h2 id="confirmation-heading" tabindex="-1">Session Confirmation</h2>
 
-        <div class="confirmation-body">
+          <p class="confirmation-intro">
+            This study session is saved. Sessions you plan in this browser
+            also appear under Your Saved Sessions on the home page.
+          </p>
+
           <dl id="confirmation-summary" class="confirmation-summary"></dl>
 
-          <a class="button-link" href="index.html">Back to Home</a>
+          <div class="confirmation-actions">
+            <button type="button" id="confirmation-close">Close</button>
+            <a class="button-link" href="index.html#saved-sessions-heading">
+              View Saved Sessions
+            </a>
+          </div>
         </div>
-      </section>
+      </dialog>
     </main>
 
     <footer class="site-footer">
